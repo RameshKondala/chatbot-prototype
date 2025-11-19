@@ -1,0 +1,13 @@
+<!-- index.html -->
+<div class="chatBot" role="region" aria-label="AI chatbot window">
+    <header>
+      <h2>ChatBot</h2>
+      <span alt="Close" id="cross" tabindex="0" aria-label="Close chat" onclick="cancel()">X</span>
+    </header>
+    <ul class="chatbox" aria-live="polite"></ul>
+    <div class="chat-input">
+      <textarea placeholder="Enter a message..." aria-label="Chat message input"></textarea>
+      <button id="sendBTN" disabled aria-label="Send message">Send</button>
+      <span class="spinner" id="spinner" style="display:none;" aria-label="Loading"></span>
+    </div>
+  </div>
