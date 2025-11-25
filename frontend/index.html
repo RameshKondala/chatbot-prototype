@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IoT Config Security Analyzer</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 20px auto; }
+    textarea { width: 100%; padding: 10px; font-family: monospace; font-size: 1rem; }
+    button { padding: 10px 20px; background-color: #3366cc; color: white; border: none; border-radius: 5px; cursor: pointer;}
+    button:disabled { background-color: #999; }
+    pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>IoT Device Config Security Analyzer</h1>
+  <p>Paste your device configuration below and click 'Analyze' to get a security assessment.</p>
+  <textarea id="configInput" rows="12" placeholder="Paste your device config here..."></textarea><br><br>
+  <button id="analyzeBtn">Analyze</button>
+  <h2>Analysis Result:</h2>
+  <pre id="result"></pre>
+
+  <script>
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const configInput = document.getElementById('configInput');
+    const result = document.getElementById('result');
+
+    analyzeBtn.addEventListener('click', async () => {
+      const config = configInput.value.trim();
+      if (!config) {
+        alert('Please paste a configuration to analyze.');
+        return;
+      }
+      result.textContent = 'Analyzing...';
+      analyzeBtn.disabled = true;
+      try {
+        const response = await fetch('http://localhost:3000/analyze-config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ config })
+        });
+        const data = await response.json();
+        result.textContent = data.analysis || data.error || 'No response from AI.';
+      } catch (e) {
+        result.textContent = 'Error connecting to backend.';
+      } finally {
+        analyzeBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
