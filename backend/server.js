@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,6 +14,12 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, { cors: { origin: '*' } });
 
+// serve frontend from backend/public
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.use(cors());
 app.use(express.json());
 app.use('/api', scanRoutes);
@@ -21,7 +28,6 @@ app.use('/api', chatRoutes);
 // WebSocket for real-time scan results
 io.on('connection', (socket) => {
   socket.on('scan-start', async (target) => {
-    // Trigger scan logic here
     const results = await performSecurityScan(target);
     socket.emit('scan-results', results);
   });
