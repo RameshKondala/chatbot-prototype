@@ -5,7 +5,8 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const jwt = require('jsonwebtoken');
-const Device = require('../../iot-sec-analyzer/models/Device');
+const Device = require('./models/device');
+
 const scanRoutes = require('./routes/scan');
 const chatRoutes = require('./routes/chat');
 require('dotenv').config();
