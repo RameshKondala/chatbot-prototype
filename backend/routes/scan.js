@@ -1,6 +1,6 @@
 const express = require('express');
 const nmap = require('node-nmap');
-const Device = require('../../../iot-sec-analyzer/models/Device');
+const Device = require('../models/device');
 const { checkConfigSecurity } = require('../../../iot-sec-analyzer/analyzers/rules');
 const router = express.Router();
 

@@ -5,7 +5,7 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const jwt = require('jsonwebtoken');
-const Device = require('./models/device');
+const Device = require('../models/device');
 
 const scanRoutes = require('./routes/scan');
 const chatRoutes = require('./routes/chat');

@@ -1,6 +1,6 @@
 const express = require('express');
 const OpenAI = require('openai');
-const Device = require('../../../iot-sec-analyzer/models/Device');
+const Device = require('../models/device');
 const router = express.Router();
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
