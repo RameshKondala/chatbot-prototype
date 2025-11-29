@@ -1,7 +1,8 @@
 const express = require('express');
 const nmap = require('node-nmap');
 const Device = require('../models/device');
-const { checkConfigSecurity } = require('../../../iot-sec-analyzer/analyzers/rules');
+const { checkConfigSecurity } = require('../analyzers/rules');
+
 const router = express.Router();
 
 // Basic NMAP scan + config analysis
