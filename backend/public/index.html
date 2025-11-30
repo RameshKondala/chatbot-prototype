@@ -20,33 +20,7 @@
   <h2>Analysis Result:</h2>
   <pre id="result"></pre>
 
-  <script>
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const configInput = document.getElementById('configInput');
-    const result = document.getElementById('result');
-
-    analyzeBtn.addEventListener('click', async () => {
-      const config = configInput.value.trim();
-      if (!config) {
-        alert('Please paste a configuration to analyze.');
-        return;
-      }
-      result.textContent = 'Analyzing...';
-      analyzeBtn.disabled = true;
-      try {
-        const response = await fetch('http://localhost:3000/analyze-config', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ config })
-        });
-        const data = await response.json();
-        result.textContent = data.analysis || data.error || 'No response from AI.';
-      } catch (e) {
-        result.textContent = 'Error connecting to backend.';
-      } finally {
-        analyzeBtn.disabled = false;
-      }
-    });
-  </script>
+  <!-- just reference the external script file -->
+  <script src="script.js"></script>
 </body>
 </html>
