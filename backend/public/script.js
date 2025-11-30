@@ -2,8 +2,25 @@ const analyzeBtn = document.getElementById('analyzeBtn');
 const configInput = document.getElementById('configInput');
 const result = document.getElementById('result');
 
+function formatDevice(device) {
+  const issuesList = device.issues && device.issues.length
+    ? device.issues.map(i => `- ${i}`).join('\n')
+    : '- No major issues detected';
+
+  return [
+    `Summary: This device has a risk score of ${device.riskScore}.`,
+    `Target/IP: ${device.ip}`,
+    `Hostname: ${device.hostname}`,
+    `Open ports: ${device.ports.join(', ')}`,
+    `TLS version: ${device.tlsVersion}`,
+    `Auth methods: ${device.authMethods.join(', ')}`,
+    `Key issues:`,
+    issuesList
+  ].join('\n');
+}
+
 analyzeBtn.addEventListener('click', async () => {
-  const target = configInput.value.trim();   // this is the scan target, e.g. "192.168.1.0/24"
+  const target = configInput.value.trim();
   if (!target) {
     alert('Please paste a configuration or IP range to analyze.');
     return;
@@ -19,8 +36,9 @@ analyzeBtn.addEventListener('click', async () => {
       body: JSON.stringify({ target })
     });
 
-    const data = await response.json();   // array of devices
-    result.textContent = JSON.stringify(data, null, 2);
+    const devices = await response.json();   // array
+    const formatted = devices.map(formatDevice).join('\n\n---\n\n');
+    result.textContent = formatted;
   } catch (e) {
     result.textContent = 'Error connecting to backend.';
   } finally {
