@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   async function sendMessageToBackend(message) {
-    const response = await fetch('http://localhost:3000/chat', {
+    const response = await fetch('/api/scan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })
